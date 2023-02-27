@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">DigitalX4</string>
+    <string name="invalid_report_name">Your name cant be Empty</string>
+    <string name="home">Home</string>
+    <string name="service_timer">Service Timer</string>
+    <string name="button_stop">Stop</string>
+    <string name="button_pause">Pause</string>
+    <string name="button_play">Play</string>
+    <string name="enter_report">Enter Service Report</string>
+    <string name="name_input_label">Name</string>
+    <string name="month_input_label">Month</string>
+    <string name="placement_input_label">Placements</string>
+    <string name="video_input_label">Video Showing</string>
+    <string name="hours_input_label">Hours</string>
+    <string name="return_visits_input_label">Return Visits</string>
+    <string name="bible_studies_input_label">Bible Studies</string>
+    <string name="comments_input_label_label">Comments</string>
+    <string name="report_title">FIELD SERVICE REPORT</string>
+    <string name="all_reports">My Reports</string>
+    <string name="student_screen_title">My Students</string>
+    <string name="interested_screen_title">Interested Persons </string>
+    <string name="schedule_screen_title">My Schedules</string>
+    <string name="send_report_subject">This is my Report</string>
+    <string name="report_details">Name: %1$s \n Month: %2$s \n Placements: %3$s \n
+        Video Showing: %4$s \n Hours: %5$s \n Return Visits: %6$s \n Bible Studies: %7$s \n Comments: %8$s \n\n Thank you!
+    </string>
+</resources>
