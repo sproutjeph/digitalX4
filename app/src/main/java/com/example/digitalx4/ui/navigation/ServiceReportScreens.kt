@@ -1,14 +1,17 @@
 package com.example.digitalx4.ui.navigation
 
 
-enum class ServiceReportScreens {
+
+enum class ServiceReportScreens() {
     HomeScreen,
     StudentsScreen,
     ReportsScreen,
     UpDateReportScreen,
     AddEditReportScreen,
     InterestedPersonsScreen,
-    ScheduleScreen;
+    ScheduleScreen,
+    StudentDetailsScreen,
+    AddEditStudentScreen;
     companion object{
         fun fromRoute(route:String?): ServiceReportScreens
                 = when(route?.substringBefore("/")){
@@ -19,6 +22,8 @@ enum class ServiceReportScreens {
             AddEditReportScreen.name -> AddEditReportScreen
             InterestedPersonsScreen.name -> InterestedPersonsScreen
             ScheduleScreen.name -> ScheduleScreen
+            StudentDetailsScreen.name -> StudentDetailsScreen
+            AddEditStudentScreen.name -> AddEditStudentScreen
             null -> HomeScreen
             else -> throw IllegalAccessException("Route $route not found" )
         }

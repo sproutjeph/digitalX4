@@ -24,4 +24,14 @@
     <string name="report_details">Name: %1$s \n Month: %2$s \n Placements: %3$s \n
         Video Showing: %4$s \n Hours: %5$s \n Return Visits: %6$s \n Bible Studies: %7$s \n Comments: %8$s \n\n Thank you!
     </string>
+    <string name="add_student">Add / Edit Student</string>
+    <string name="students_name">Students Name</string>
+    <string name="address">Students Address</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="students_email">Email</string>
+    <string name="students_book">Book Studying</string>
+    <string name="lesson">Lesson Under Consideration</string>
+    <string name="time_of_visit">Time of Visit</string>
+    <string name="question">Question to Consider</string>
+    <string name="notes">Note about Student</string>
 </resources>
