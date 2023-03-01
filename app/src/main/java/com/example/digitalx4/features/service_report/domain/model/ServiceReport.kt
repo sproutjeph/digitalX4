@@ -1,5 +1,6 @@
 package com.example.digitalx4.features.service_report.domain.model
 
+import androidx.compose.ui.graphics.toArgb
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -35,6 +36,8 @@ data class ServiceReport(
 
     @ColumnInfo(name = "comments")
     val comments: String,
+
+    val color: Int = reportColors.random().toArgb(),
 
     @ColumnInfo(name = "report_entry_date")
     val entryDate: Date = Date.from(Instant.now())

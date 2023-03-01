@@ -3,10 +3,6 @@ package com.example.digitalx4.features.service_report.presentation.service_repor
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,13 +14,11 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.clipPath
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
 import com.example.digitalx4.features.service_report.domain.model.ServiceReport
-import com.example.digitalx4.ui.theme.*
 
 @Composable
 fun ServiceReportPreviewItem(
@@ -34,16 +28,9 @@ fun ServiceReportPreviewItem(
     cutCornerSize: Dp = 30.dp,
     onReportClick: () -> Unit
 ) {
-    val reportColors = listOf(
-        RedOrange,
-        LightGreen,
-        Violet,
-        BabyBlue,
-        RedPink
 
-    )
 
-    val randomColor = reportColors.random()
+    val reportColor = serviceReport.color
 
 
     Box(
@@ -62,14 +49,14 @@ fun ServiceReportPreviewItem(
             }
             clipPath(clipPath){
                 drawRoundRect(
-                    color = Color(randomColor.value),
+                    color = Color(reportColor),
                     size = size,
                     cornerRadius = CornerRadius(cornerRadius.toPx())
                 )
 
                 drawRoundRect(
                     color = Color(
-                        ColorUtils.blendARGB(randomColor.toArgb(), 0x000000, 0.2f)
+                        ColorUtils.blendARGB(reportColor, 0x000000, 0.2f)
                     ),
                     topLeft = Offset(size.width - cutCornerSize.toPx(), 0f),
                     size = Size(cutCornerSize.toPx(), cutCornerSize.toPx()),

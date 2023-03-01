@@ -13,7 +13,7 @@ data class StudentInputState(
     val lesson: MutableState<String>,
     val timeOfVisit: MutableState<String>,
     val questionToConsider: MutableState<String>,
-    val Note: MutableState<String>,
+    val note: MutableState<String>,
 
     )
 

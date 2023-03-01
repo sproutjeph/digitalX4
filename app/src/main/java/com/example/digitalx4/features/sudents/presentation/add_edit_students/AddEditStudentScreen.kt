@@ -4,6 +4,7 @@ package com.example.digitalx4.features.sudents.presentation.add_edit_students
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -14,26 +15,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.service_report.presentation.add_edit_report.ServiceReportInputTextFieldState
 import com.example.digitalx4.features.service_report.presentation.add_edit_report.components.ServiceReportInputField
+import com.example.digitalx4.features.sudents.domain.model.StudentModel
 import com.example.digitalx4.features.sudents.presentation.components.StudentInputState
+import com.example.digitalx4.features.sudents.presentation.students.StudentViewModel
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
+import com.example.digitalx4.ui.navigation.ServiceReportScreens
+import java.util.*
 
 //@Preview()
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditStudentScreen(
+    studentViewModel: StudentViewModel = hiltViewModel(),
     navController: NavController  = rememberNavController(),
-    studentInputState: StudentInputState? = null
+    studentInputState: StudentInputState = StudentInputState(
+        name = remember { mutableStateOf("") },
+        address = remember { mutableStateOf("") },
+        phoneNumber = remember { mutableStateOf("") },
+        email = remember { mutableStateOf("") },
+        bookStudying = remember { mutableStateOf("") },
+        lesson = remember { mutableStateOf("") },
+        timeOfVisit = remember { mutableStateOf("") },
+        questionToConsider = remember { mutableStateOf("") },
+        note = remember { mutableStateOf("") },
+    ),
+    id: UUID? = null
 ) {
-    var nameState = remember {
-        mutableStateOf("")
-    }
+
 
     Scaffold (
         topBar = {
@@ -47,7 +63,54 @@ fun AddEditStudentScreen(
             ServiceReportBottomAppBar(navController = navController)
         },
         floatingActionButton = {
-            ServiceReportFAB(icon = Icons.Default.Done)
+            ServiceReportFAB(icon = Icons.Default.Done){
+                if(id != null){
+                    studentViewModel.updateStudent(
+                        StudentModel(
+                            id = id,
+                            studentName = studentInputState.name.value,
+                            address = studentInputState.address.value,
+                            phoneNumber = studentInputState.phoneNumber.value,
+                            email = studentInputState.email.value,
+                            bookStudying = studentInputState.bookStudying.value,
+                            lessonUnderConsideration = studentInputState.lesson.value,
+                            timeOfVisit = studentInputState.timeOfVisit.value,
+                            questionToConsider = studentInputState.questionToConsider.value,
+                            noteAboutStudent = studentInputState.note.value
+                        )
+                    )
+                }else{
+                    studentViewModel.addStudent(
+                        StudentModel(
+                            studentName = studentInputState.name.value,
+                            address = studentInputState.address.value,
+                            phoneNumber = studentInputState.phoneNumber.value,
+                            email = studentInputState.email.value,
+                            bookStudying = studentInputState.bookStudying.value,
+                            lessonUnderConsideration = studentInputState.lesson.value,
+                            timeOfVisit = studentInputState.timeOfVisit.value,
+                            questionToConsider = studentInputState.questionToConsider.value,
+                            noteAboutStudent = studentInputState.note.value
+                        )
+                    )
+                }
+
+                studentInputState.name.value = ""
+                studentInputState.address.value = ""
+                studentInputState.phoneNumber.value = ""
+                studentInputState.email.value = ""
+                studentInputState.bookStudying.value = ""
+                studentInputState.lesson.value = ""
+                studentInputState.timeOfVisit.value = ""
+                studentInputState.questionToConsider.value = ""
+                studentInputState.note.value = ""
+
+                navController.navigate(ServiceReportScreens.StudentsScreen.name)
+
+            }
+
+
+
         }
 
         ){ contentPadding->
@@ -64,9 +127,10 @@ fun AddEditStudentScreen(
                         .fillMaxWidth()
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     label = R.string.students_name,
-                    value = nameState.value,
-                    onValueChange = { nameState.value = it
-
+                    value = studentInputState.name.value,
+                    onValueChange = { if(it.all {
+                                char -> char.isDefined() || char.isWhitespace()
+                        }) studentInputState.name.value = it
 
                     },
                     maxLine = 10,
@@ -80,10 +144,15 @@ fun AddEditStudentScreen(
                         .fillMaxWidth()
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     label = R.string.address,
-                    value = "",
-                    onValueChange = {},
+                    value = studentInputState.address.value,
+                    onValueChange = {
+                        if(it.all {
+                                    char -> char.isDefined() || char.isWhitespace()
+                            }) studentInputState.address.value = it
+
+                    },
                     maxLine = 10,
-                    keyboardType = KeyboardType.Text
+                    keyboardType = KeyboardType.Ascii
 
                 )
                 ServiceReportInputField(
@@ -91,10 +160,15 @@ fun AddEditStudentScreen(
                         .fillMaxWidth()
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     label = R.string.phone_number,
-                    value = "",
-                    onValueChange = {},
+                    value = studentInputState.phoneNumber.value,
+                    onValueChange = {
+                        if(it.all {
+                                    char -> char.isDefined() || char.isWhitespace()
+                            }) studentInputState.phoneNumber.value = it
+
+                    },
                     maxLine = 10,
-                    keyboardType = KeyboardType.Text
+                    keyboardType = KeyboardType.Phone
 
 
                 )
@@ -103,10 +177,15 @@ fun AddEditStudentScreen(
                         .fillMaxWidth()
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     label = R.string.students_email,
-                    value = "",
-                    onValueChange = {},
+                    value = studentInputState.email.value,
+                    onValueChange = {
+                        if(it.all {
+                                    char -> char.isDefined() || char.isWhitespace()
+                            }) studentInputState.email.value = it
+
+                    },
                     maxLine = 10,
-                    keyboardType = KeyboardType.Text,
+                    keyboardType = KeyboardType.Email,
 
 
                     )
@@ -115,8 +194,13 @@ fun AddEditStudentScreen(
                         .fillMaxWidth()
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     label = R.string.students_book,
-                    value = "",
-                    onValueChange = {},
+                    value = studentInputState.bookStudying.value,
+                    onValueChange = {
+                        if(it.all {
+                                    char -> char.isDefined() || char.isWhitespace()
+                            }) studentInputState.bookStudying.value = it
+
+                    },
                     maxLine = 10,
                     keyboardType = KeyboardType.Text
 
@@ -127,8 +211,13 @@ fun AddEditStudentScreen(
                         .fillMaxWidth()
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     label = R.string.lesson,
-                    value = "",
-                    onValueChange = {},
+                    value = studentInputState.lesson.value,
+                    onValueChange = {
+                        if(it.all {
+                                    char -> char.isDefined() || char.isWhitespace()
+                            }) studentInputState.lesson.value = it
+
+                    },
                     maxLine = 10,
                     keyboardType = KeyboardType.Text
 
@@ -139,8 +228,13 @@ fun AddEditStudentScreen(
                         .fillMaxWidth()
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     label = R.string.time_of_visit,
-                    value = "",
-                    onValueChange = {},
+                    value = studentInputState.timeOfVisit.value,
+                    onValueChange = {
+                        if(it.all {
+                                    char -> char.isDefined() || char.isWhitespace()
+                            }) studentInputState.timeOfVisit.value = it
+
+                    },
                     maxLine = 10,
                     keyboardType = KeyboardType.Text
 
@@ -151,8 +245,13 @@ fun AddEditStudentScreen(
                         .fillMaxWidth()
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     label = R.string.question,
-                    value = "",
-                    onValueChange = {},
+                    value = studentInputState.questionToConsider.value,
+                    onValueChange = {
+                        if(it.all {
+                                    char -> char.isDefined() || char.isWhitespace()
+                            }) studentInputState.questionToConsider.value = it
+
+                    },
                     maxLine = 10,
                     keyboardType = KeyboardType.Text
 
@@ -163,12 +262,20 @@ fun AddEditStudentScreen(
                         .fillMaxWidth()
                         .padding(vertical = 8.dp, horizontal = 16.dp),
                     label = R.string.notes,
-                    value = "",
-                    onValueChange = {},
+                    value = studentInputState.note.value,
+                    onValueChange = {
+                        if(it.all {
+                                    char -> char.isDefined() || char.isWhitespace()
+                            }) studentInputState.note.value = it
+
+                    },
                     maxLine = 10,
                     keyboardType = KeyboardType.Text
 
                 )
+
+                // give space because of phone buttons
+                Spacer(modifier = Modifier.height(250.dp))
             }
 
 
@@ -182,6 +289,7 @@ fun AddEditStudentScreen(
     }
     
 }
+
 
 
 

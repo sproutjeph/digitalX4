@@ -6,6 +6,9 @@ import com.example.digitalx4.features.service_report.data.data_source.ServiceRep
 import com.example.digitalx4.features.service_report.data.repository.ServiceReportRepository
 import com.example.digitalx4.features.service_report.domain.repository.ServiceReportRepositoryImpl
 import com.example.digitalx4.features.service_report.domain.use_case.*
+import com.example.digitalx4.features.sudents.data.repository.StudentRepository
+import com.example.digitalx4.features.sudents.domain.repository.StudentRepositoryImpl
+import com.example.digitalx4.features.sudents.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,6 +45,24 @@ object AppModule {
             addServiceReport = AddServiceReport(repository),
             getServiceReport = GetServiceReport(repository),
             upDateServiceReport = UpdateServiceReport(repository)
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun providesStudentRepository(db: ServiceReportDatabase):StudentRepository{
+        return  StudentRepositoryImpl(db.studentDao)
+    }
+
+    @Provides
+    @Singleton
+    fun providesStudentUseCases(repository: StudentRepository): StudentUseCases{
+        return StudentUseCases(
+            getAllStudents = GetAllStudents(repository),
+            deleteStudent = DeleteStudent(repository),
+            addStudent = AddStudent(repository),
+            updateStudent = UpdateStudent(repository),
+            getStudent = GetStudent(repository)
         )
     }
 

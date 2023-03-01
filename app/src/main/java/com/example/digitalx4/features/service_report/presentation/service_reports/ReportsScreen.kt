@@ -26,9 +26,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun ServiceReportItemScreen(
     navController: NavController,
-    viewModel: ServiceReportViewModel = hiltViewModel()
+    serviceReportViewModel: ServiceReportViewModel = hiltViewModel()
 ){
-    val serviceReports = viewModel.serviceReports.collectAsState().value
+    val serviceReports = serviceReportViewModel.serviceReports.collectAsState().value
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -79,7 +79,7 @@ fun ServiceReportItemScreen(
                                 )
 
                                 if(result == SnackbarResult.ActionPerformed){
-                                    viewModel.onEvent(
+                                    serviceReportViewModel.onEvent(
                                         ServiceReportsEvents.DeleteServiceReport(serviceReport)
                                     )
                                 }

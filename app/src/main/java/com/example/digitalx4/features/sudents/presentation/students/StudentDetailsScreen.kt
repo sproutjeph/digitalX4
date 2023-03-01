@@ -12,10 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.digitalx4.R
+import com.example.digitalx4.features.sudents.domain.model.StudentModel
 import com.example.digitalx4.features.sudents.presentation.components.StudentInfoRow
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
@@ -27,7 +27,8 @@ import com.example.digitalx4.ui.navigation.ServiceReportScreens
 @Composable
 fun StudentDetailsScreen(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    studentDetails: StudentModel?
 ) {
 
 
@@ -44,7 +45,7 @@ fun StudentDetailsScreen(
         },
         floatingActionButton = {
             ServiceReportFAB(icon = Icons.Default.Edit){
-                navController.navigate(ServiceReportScreens.AddEditStudentScreen.name)
+                navController.navigate(ServiceReportScreens.AddEditStudentScreen.name+"?studentId=${studentDetails?.id}")
             }
         },
 
@@ -76,18 +77,21 @@ fun StudentDetailsScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
 
-                    item {
-                        StudentInfoRow(label = "Name : ", text = "Jephthah Mbah")
-                        StudentInfoRow(label = "Address : ", text = "No 1, Main Street, Lagos")
-                        StudentInfoRow(label = "Phone Number : ", text = "07065406165")
-                        StudentInfoRow(label = "Email : ", text = "jephthah.mbah@outlook.com")
-                        StudentInfoRow(label = "Book Studying : ", text = "Enjoy Life Forever")
-                        StudentInfoRow(label = "Lesson Under Consideration : ", text = "Lesson 6")
-                        StudentInfoRow(label = "Time Of Visit : ", text = "Sundays By 3:00 PM")
-                        StudentInfoRow(label = "Question To Consider : ", text = "Why Do we Suffer")
+                    if(studentDetails != null){
+                        item {
+                            StudentInfoRow(label = "Name : ", text = studentDetails.studentName)
+                            StudentInfoRow(label = "Address : ", text = studentDetails.address)
+                            StudentInfoRow(label = "Phone Number : ", text = studentDetails.phoneNumber)
+                            StudentInfoRow(label = "Email : ", text = studentDetails.email)
+                            StudentInfoRow(label = "Book Studying : ", text = studentDetails.bookStudying)
+                            StudentInfoRow(label = "Lesson Under Consideration : ", text = studentDetails.lessonUnderConsideration)
+                            StudentInfoRow(label = "Time Of Visit : ", text = studentDetails.timeOfVisit)
+                            StudentInfoRow(label = "Question To Consider : ", text = studentDetails.questionToConsider)
 
 
+                        }
                     }
+
                 }
             }
 
