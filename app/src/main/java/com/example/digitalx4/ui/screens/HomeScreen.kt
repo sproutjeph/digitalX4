@@ -10,7 +10,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.service_report.presentation.service_reports.ServiceReportViewModel
-import com.example.digitalx4.features.service_report.presentation.service_reports.component.ServiceReportItem
 import com.example.digitalx4.features.service_timer.presentation.ServiceTimer
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
@@ -19,15 +18,18 @@ import com.example.digitalx4.ui.navigation.ServiceReportScreens
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import com.example.digitalx4.features.service_report.presentation.service_reports.component.ServiceReportPreviewItem
+import com.example.digitalx4.features.service_timer.presentation.ServiceTimerViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavController,
-    viewModel: ServiceReportViewModel = hiltViewModel()
+    serviceReportViewModel: ServiceReportViewModel = hiltViewModel(),
+    serviceTimerViewModel: ServiceTimerViewModel = hiltViewModel(),
 
-){
-    val serviceReports = viewModel.serviceReports.collectAsState().value
+
+    ){
+    val serviceReports = serviceReportViewModel.serviceReports.collectAsState().value
 
 
     Scaffold(
@@ -52,7 +54,16 @@ fun HomeScreen(
         modifier = Modifier
             .padding(contentPadding)
          ) {
-            ServiceTimer()
+            ServiceTimer(
+                isTimerRuning = serviceTimerViewModel.isTimerRunning,
+                seconds = serviceTimerViewModel.seconds,
+                minutes = serviceTimerViewModel.minutes,
+                hours = serviceTimerViewModel.hours,
+                onStart = {serviceTimerViewModel.start()},
+                onPause = {serviceTimerViewModel.pause()},
+                onStop = {serviceTimerViewModel.stop()}
+
+            )
 
         LazyColumn(modifier = Modifier){
             items(serviceReports){ serviceReport ->

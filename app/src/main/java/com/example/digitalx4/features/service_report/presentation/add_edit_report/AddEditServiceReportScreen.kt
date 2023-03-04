@@ -1,5 +1,6 @@
 package com.example.digitalx4.features.service_report.presentation.add_edit_report
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.digitalx4.R
+import com.example.digitalx4.features.service_report.domain.model.InvalidReportException
 import com.example.digitalx4.features.service_report.domain.model.ServiceReport
 import com.example.digitalx4.features.service_report.presentation.add_edit_report.components.EnterEditReport
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
@@ -39,8 +41,7 @@ fun AddEditServiceReportScreen(
         comments = remember { mutableStateOf("") },
     ),
     id: UUID? = null
-){
-
+) {
 
 
     Scaffold(
@@ -52,12 +53,11 @@ fun AddEditServiceReportScreen(
             )
         },
         bottomBar = {
-                    ServiceReportBottomAppBar(navController = navController)
+            ServiceReportBottomAppBar(navController = navController)
         },
         floatingActionButton = {
-            ServiceReportFAB(icon = Icons.Default.Done){
-
-                if(id != null){
+            ServiceReportFAB(icon = Icons.Default.Done) {
+                if (id != null) {
                     viewModel.updateServiceReport(
                         ServiceReport(
                             id = id,
@@ -71,7 +71,7 @@ fun AddEditServiceReportScreen(
                             comments = serviceReportInputTextFieldStateState.comments.value,
                         )
                     )
-                } else{
+                } else {
                     viewModel.addServiceReport(
                         ServiceReport(
                             name = serviceReportInputTextFieldStateState.name.value,
@@ -86,8 +86,6 @@ fun AddEditServiceReportScreen(
                     )
                 }
 
-
-
                 serviceReportInputTextFieldStateState.name.value = ""
                 serviceReportInputTextFieldStateState.month.value = ""
                 serviceReportInputTextFieldStateState.placement.value = ""
@@ -100,19 +98,18 @@ fun AddEditServiceReportScreen(
                 navController.navigate(ServiceReportScreens.HomeScreen.name)
 
 
-
             }
         }
-      ) {
-            contentPadding -> Column(
-                      horizontalAlignment = Alignment.CenterHorizontally,
-                      modifier = Modifier
-                           .padding(contentPadding)
-                 ){
-                    EnterEditReport(
-                        serviceReportInputTextFieldStateState =  serviceReportInputTextFieldStateState,
-                    )
-            }
+    ) { contentPadding ->
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .padding(contentPadding)
+        ) {
+            EnterEditReport(
+                serviceReportInputTextFieldStateState = serviceReportInputTextFieldStateState,
+            )
+        }
 
     }
 

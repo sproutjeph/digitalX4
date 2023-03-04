@@ -11,12 +11,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.digitalx4.R
 import com.example.digitalx4.ui.theme.md_theme_light_background
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
 fun ServiceTimer(
     modifier: Modifier = Modifier,
+    isTimerRuning:Boolean,
+    seconds:String,
+    minutes:String,
+    hours:String,
+    onStart:()-> Unit = {},
+    onPause: ()-> Unit = {},
+    onStop: ()-> Unit = {}
 
 
 
@@ -50,15 +59,15 @@ fun ServiceTimer(
 
                 ) {
                 Text(
-                    text = "00:",
+                    text = "$hours : ",
                     style = MaterialTheme.typography.displaySmall
                 )
                 Text(
-                    text = "00:",
+                    text = "$minutes : ",
                     style = MaterialTheme.typography.displaySmall
                 )
                 Text(
-                    text = "00",
+                    text = "$seconds",
                     style = MaterialTheme.typography.displaySmall
                 )
             }
@@ -72,24 +81,29 @@ fun ServiceTimer(
 
             ){
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = { onStop.invoke() },
                     shape = RoundedCornerShape(5.dp),
+                    enabled = isTimerRuning
+
 
                 ) {
                     Text(text = stringResource(id = R.string.button_stop))
 
                 }
                 Button(
-                    onClick = { /*TODO*/ },
-                    shape = RoundedCornerShape(5.dp)
+                    onClick = { onPause.invoke() },
+                    shape = RoundedCornerShape(5.dp),
+                    enabled = isTimerRuning
+
 
                 ) {
                     Text(text = stringResource(id = R.string.button_pause))
                 }
 
                 Button(
-                    onClick = { /*TODO*/ },
-                    shape = RoundedCornerShape(5.dp)
+                    onClick = { onStart.invoke()},
+                    shape = RoundedCornerShape(5.dp),
+                    enabled = !isTimerRuning
                 ) {
                     Text(text = stringResource(id = R.string.button_play))
                 }
