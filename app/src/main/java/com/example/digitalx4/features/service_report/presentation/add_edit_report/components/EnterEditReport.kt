@@ -1,7 +1,8 @@
 package com.example.digitalx4.features.service_report.presentation.add_edit_report.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
@@ -9,15 +10,28 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.digitalx4.R
 import com.example.digitalx4.features.service_report.presentation.add_edit_report.ServiceReportInputTextFieldState
+import java.time.LocalDate
+import java.time.format.TextStyle
+import java.util.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EnterEditReport(
     modifier: Modifier = Modifier,
     serviceReportInputTextFieldStateState: ServiceReportInputTextFieldState,
 ){
+    val currentYear = LocalDate.now().year
+    val options = mutableListOf<String>()
+    for (month in 1..12) {
+        val monthName = LocalDate.of(currentYear, month, 1)
+            .month
+            .getDisplayName(TextStyle.FULL_STANDALONE, Locale.ENGLISH)
+        options.add("$monthName $currentYear")
+    }
 
 
-
+    var expanded by remember { mutableStateOf(false) }
+    var selectedOptionText by remember { serviceReportInputTextFieldStateState.month }
 
 
     Column (
@@ -37,27 +51,67 @@ fun EnterEditReport(
                     }) serviceReportInputTextFieldStateState.name.value = it
 
             }
+
+
         )
+
+
 
         Row (
             modifier = modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp)
         ) {
-            ServiceReportInputField(
-                value = serviceReportInputTextFieldStateState.month.value,
-                label = R.string.month_input_label,
+
+
+            ExposedDropdownMenuBox(
+                expanded = expanded,
                 modifier = Modifier
                     .weight(1f),
-                keyboardType = KeyboardType.Text,
-                onValueChange = {
-                    if(it.all {
-                                char -> char.isLetter() || char.isWhitespace()
-                        }) serviceReportInputTextFieldStateState.month.value = it
-
+                onExpandedChange = {
+                    expanded = !expanded
                 }
+            ) {
 
-            )
+                ServiceReportInputField(
+                    readOnly = true,
+                    value = selectedOptionText,
+                    onValueChange = {
+                         serviceReportInputTextFieldStateState.month.value = it
+                    },
+                    modifier = Modifier.menuAnchor(),
+
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(
+                            expanded = expanded
+                        )
+
+                    },
+                    label = R.string.month_input_label
+                )
+                ExposedDropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = {
+                        expanded = false
+                    }
+                ) {
+                    options.forEach { selectionOption ->
+
+                        DropdownMenuItem(
+                            onClick = {
+                                selectedOptionText = selectionOption
+                                expanded = false
+                            },
+                            text = { Text(selectionOption) }
+                        )
+                    }
+                }
+            }
+
+
+
+
+
 
             Spacer(modifier = Modifier.width(8.dp))
 
@@ -165,3 +219,6 @@ fun EnterEditReport(
 
     }
 }
+
+
+

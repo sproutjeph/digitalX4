@@ -2,10 +2,14 @@ package com.example.digitalx4.features.service_timer.presentation
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.digitalx4.features.sudents.domain.model.StudentModel
 import com.example.digitalx4.features.sudents.domain.use_case.StudentUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import java.time.Duration
 import java.util.*
 import javax.inject.Inject
@@ -24,17 +28,20 @@ class ServiceTimerViewModel  @Inject constructor ():ViewModel() {
 
     var isTimerRunning by mutableStateOf(false)
 
-    fun start(){
+
+
+    fun start() = viewModelScope.launch {
         timer = fixedRateTimer(initialDelay = 1000L, period = 1000L){
             time = time.plus(Duration.ofSeconds(1))
             updateTimeStates()
-                   }
+        }
 
         isTimerRunning = true
-
     }
 
-    private fun updateTimeStates(){
+
+
+    private fun updateTimeStates()  {
         val seconds = time.seconds % 60
         val minutes = time.toMinutes() % 60
         val hours = time.toHours()
@@ -44,15 +51,19 @@ class ServiceTimerViewModel  @Inject constructor ():ViewModel() {
         this.hours = hours.toString().padStart(2,'0')
     }
 
-    fun pause(){
+    fun pause() = viewModelScope.launch{
         timer.cancel()
         isTimerRunning = false
     }
 
-    fun stop(){
+    fun stop() = viewModelScope.launch{
         pause()
         time = Duration.ZERO
         updateTimeStates()
     }
 
 }
+
+//fun addStudent(studentModel: StudentModel) = viewModelScope.launch {
+//    studentUseCases.addStudent(studentModel)
+//}

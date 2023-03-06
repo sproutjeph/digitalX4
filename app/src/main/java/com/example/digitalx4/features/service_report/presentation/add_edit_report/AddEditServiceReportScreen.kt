@@ -1,21 +1,16 @@
 package com.example.digitalx4.features.service_report.presentation.add_edit_report
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.digitalx4.R
-import com.example.digitalx4.features.service_report.domain.model.InvalidReportException
 import com.example.digitalx4.features.service_report.domain.model.ServiceReport
 import com.example.digitalx4.features.service_report.presentation.add_edit_report.components.EnterEditReport
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
@@ -42,6 +37,8 @@ fun AddEditServiceReportScreen(
     ),
     id: UUID? = null
 ) {
+
+
 
 
     Scaffold(
@@ -114,6 +111,7 @@ fun AddEditServiceReportScreen(
     }
 
 }
+
 
 
 

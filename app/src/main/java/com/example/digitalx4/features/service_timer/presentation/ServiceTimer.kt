@@ -1,5 +1,7 @@
 package com.example.digitalx4.features.service_timer.presentation
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -16,6 +18,7 @@ import com.example.digitalx4.R
 import com.example.digitalx4.ui.theme.md_theme_light_background
 import dagger.hilt.android.lifecycle.HiltViewModel
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ServiceTimer(
     modifier: Modifier = Modifier,
@@ -58,18 +61,26 @@ fun ServiceTimer(
             Row(modifier = Modifier,
 
                 ) {
-                Text(
-                    text = "$hours : ",
-                    style = MaterialTheme.typography.displaySmall
-                )
-                Text(
-                    text = "$minutes : ",
-                    style = MaterialTheme.typography.displaySmall
-                )
-                Text(
-                    text = "$seconds",
-                    style = MaterialTheme.typography.displaySmall
-                )
+                AnimatedContent(targetState =hours, transitionSpec = { addAnimation() }) {
+                    Text(
+                        text = "$hours : ",
+                        style = MaterialTheme.typography.displaySmall
+                    )
+                }
+                AnimatedContent(targetState =minutes, transitionSpec = { addAnimation() }) {
+                    Text(
+                        text = "$minutes : ",
+                        style = MaterialTheme.typography.displaySmall
+                    )
+                }
+                AnimatedContent(targetState =seconds, transitionSpec = { addAnimation() }) {
+                    Text(
+                        text = seconds,
+                        style = MaterialTheme.typography.displaySmall,
+                        color = if(seconds == "00") MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.primary
+                    )
+                }
+
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -112,4 +123,14 @@ fun ServiceTimer(
         }
 
     }
+}
+
+
+@ExperimentalAnimationApi
+fun addAnimation(duration: Int = 600): ContentTransform {
+    return slideInVertically(animationSpec = tween(durationMillis = duration)) { height -> height } + fadeIn(
+        animationSpec = tween(durationMillis = duration)
+    ) with slideOutVertically(animationSpec = tween(durationMillis = duration)) { height -> height } + fadeOut(
+        animationSpec = tween(durationMillis = duration)
+    )
 }

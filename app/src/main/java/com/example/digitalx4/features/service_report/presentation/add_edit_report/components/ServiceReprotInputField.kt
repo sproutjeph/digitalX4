@@ -22,7 +22,9 @@ fun ServiceReportInputField(
     onImeAction: () -> Unit = {},
     maxLine: Int = 1,
     imeAction: ImeAction = ImeAction.Next,
-    keyboardType: KeyboardType = KeyboardType.Number
+    keyboardType: KeyboardType = KeyboardType.Number,
+    readOnly: Boolean = false,
+    trailingIcon: @Composable (() -> Unit)? = null
 ){
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
@@ -55,7 +57,9 @@ fun ServiceReportInputField(
                 keyboardController?.hide()
             }
         ),
-        modifier = modifier
+        modifier = modifier,
+        readOnly = readOnly,
+        trailingIcon = trailingIcon
 
     )
 

@@ -17,6 +17,7 @@ import com.example.digitalx4.ui.components.ServiceReportTopAppBar
 import com.example.digitalx4.ui.navigation.ServiceReportScreens
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.rememberCoroutineScope
 import com.example.digitalx4.features.service_report.presentation.service_reports.component.ServiceReportPreviewItem
 import com.example.digitalx4.features.service_timer.presentation.ServiceTimerViewModel
 
@@ -30,6 +31,7 @@ fun HomeScreen(
 
     ){
     val serviceReports = serviceReportViewModel.serviceReports.collectAsState().value
+    val scope = rememberCoroutineScope()
 
 
     Scaffold(
@@ -54,6 +56,7 @@ fun HomeScreen(
         modifier = Modifier
             .padding(contentPadding)
          ) {
+
             ServiceTimer(
                 isTimerRuning = serviceTimerViewModel.isTimerRunning,
                 seconds = serviceTimerViewModel.seconds,
