@@ -26,7 +26,7 @@ fun EnterEditReport(
         val monthName = LocalDate.of(currentYear, month, 1)
             .month
             .getDisplayName(TextStyle.FULL_STANDALONE, Locale.ENGLISH)
-        options.add("$monthName $currentYear")
+        options.add("${monthName.substring(0, 3)} $currentYear")
     }
 
 

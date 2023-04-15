@@ -24,7 +24,7 @@ class StudentRepositoryImpl (
         return studentDao.deleteStudent(studentModel)
     }
 
-    override suspend fun getStudentById(studentId: String): StudentModel? {
+    override suspend fun getStudentById(studentId: String): StudentModel {
         return studentDao.getStudentById(studentId)
     }
 

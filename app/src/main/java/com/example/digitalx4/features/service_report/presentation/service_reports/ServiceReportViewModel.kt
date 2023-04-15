@@ -1,7 +1,6 @@
 package com.example.digitalx4.features.service_report.presentation.service_reports
 
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.digitalx4.features.service_report.domain.model.ServiceReport
@@ -18,26 +17,32 @@ import javax.inject.Inject
 @HiltViewModel
 class ServiceReportViewModel @Inject constructor(
     private val serviceReportUseCases: ServiceReportUseCases,
-    savedStateHandle: SavedStateHandle
 ) : ViewModel(){
     private val _serviceReports = MutableStateFlow<List<ServiceReport>>(emptyList())
 
     val serviceReports = _serviceReports.asStateFlow()
 
+
+
     init {
         viewModelScope.launch (Dispatchers.IO){
-serviceReportUseCases.getAllServiceReports().distinctUntilChanged()
+            serviceReportUseCases.getAllServiceReports().distinctUntilChanged()
                 .collect{
                     listOfServiceReports ->
-                    if(listOfServiceReports.isNullOrEmpty()){
+                    if(listOfServiceReports.isEmpty()){
                         Log.d("Empty", "Empty List ")
                     }else{
                         _serviceReports.value = listOfServiceReports
                     }
                 }
+
+
         }
 
-        serviceReportUseCases.getAllServiceReports().distinctUntilChanged()
+           serviceReportUseCases.getAllServiceReports().distinctUntilChanged()
+
+
+
 
     }
 

@@ -14,24 +14,21 @@ import com.example.digitalx4.features.service_timer.presentation.ServiceTimer
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
-import com.example.digitalx4.ui.navigation.ServiceReportScreens
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.rememberCoroutineScope
 import com.example.digitalx4.features.service_report.presentation.service_reports.component.ServiceReportPreviewItem
 import com.example.digitalx4.features.service_timer.presentation.ServiceTimerViewModel
+import com.example.digitalx4.ui.navigation.Screen
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavController,
     serviceReportViewModel: ServiceReportViewModel = hiltViewModel(),
     serviceTimerViewModel: ServiceTimerViewModel = hiltViewModel(),
-
-
+    navigateToAddEditReportScreen: () -> Unit,
     ){
     val serviceReports = serviceReportViewModel.serviceReports.collectAsState().value
-    val scope = rememberCoroutineScope()
 
 
     Scaffold(
@@ -45,9 +42,9 @@ fun HomeScreen(
         },
         bottomBar = { ServiceReportBottomAppBar(navController = navController) },
         floatingActionButton = {
-            ServiceReportFAB(){
-                navController.navigate(ServiceReportScreens.AddEditReportScreen.name+"?reportId=")
-            }
+            ServiceReportFAB(
+                onClicked = { navigateToAddEditReportScreen.invoke() }
+            )
         }
 
     ) {
@@ -58,7 +55,7 @@ fun HomeScreen(
          ) {
 
             ServiceTimer(
-                isTimerRuning = serviceTimerViewModel.isTimerRunning,
+                isTimerRunning = serviceTimerViewModel.isTimerRunning,
                 seconds = serviceTimerViewModel.seconds,
                 minutes = serviceTimerViewModel.minutes,
                 hours = serviceTimerViewModel.hours,
@@ -71,7 +68,7 @@ fun HomeScreen(
         LazyColumn(modifier = Modifier){
             items(serviceReports){ serviceReport ->
                 ServiceReportPreviewItem(serviceReport = serviceReport){
-                    navController.navigate(ServiceReportScreens.ReportsScreen.name)
+                    navController.navigate(Screen.Reports.route)
                 }
             }
         }

@@ -15,4 +15,5 @@ interface ServiceReportRepository {
     suspend fun getServiceReportById(serviceReportId:String): ServiceReport?
 
     suspend fun updateServiceReport(serviceReport: ServiceReport)
+
 }

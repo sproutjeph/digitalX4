@@ -15,15 +15,19 @@ import androidx.compose.ui.unit.dp
 @Preview(showBackground = true)
 @Composable
 fun OrderBySection(
-    modifier: Modifier = Modifier
-) {
+    modifier: Modifier = Modifier,
+
+
+
+    ) {
     val options = listOf("Date", "Last Added", "Year")
     var selectedOption by remember { mutableStateOf(options[0]) }
+
 
     Column (
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 8.dp),
+            .padding( vertical = 4.dp),
     ){
         Text(
             text = "SORT BY",
@@ -31,26 +35,35 @@ fun OrderBySection(
             modifier = modifier.align(Alignment.CenterHorizontally)
         )
         Row(
-            modifier = Modifier,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             options.forEach { option ->
                 Row(
                     Modifier
                         .selectable(
-                            selected = (option == selectedOption),
-                            onClick = { selectedOption = option }
+                            onClick = { selectedOption = option },
+                            selected = (option == selectedOption)
                         )
-                        .padding(horizontal = 10.dp, vertical = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                        .padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+
                 ) {
-                    RadioButton( // add a radio button
+                    RadioButton(
                         selected = (option == selectedOption),
-                        onClick = null // null recommended for accessibility with screenreaders
+                        onClick = when(option){
+                            "Date" -> null
+                            "Year" -> null
+                            else -> null
+                        },
+
                     )
-                    Text( // add a text label
+                    Text(
                         text = option,
-                        style = MaterialTheme.typography.bodyMedium.merge(),
-                        modifier = Modifier.padding(start = 16.dp)
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier
+                            .padding(start = 4.dp)
                     )
                 }
             }

@@ -5,7 +5,7 @@ import java.util.*
 
 class UUIDConverter {
     @TypeConverter
-    fun fromUUID(uuid: UUID):String?{
+    fun fromUUID(uuid: UUID): String {
         return uuid.toString()
     }
 

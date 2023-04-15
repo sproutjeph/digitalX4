@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ReportActionButton(
-    modifier: Modifier = Modifier,
     text:String,
     onClick: ()-> Unit,
     enabled: Boolean = true,

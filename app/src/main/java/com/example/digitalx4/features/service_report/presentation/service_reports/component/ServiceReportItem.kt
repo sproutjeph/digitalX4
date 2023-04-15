@@ -11,28 +11,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.service_report.domain.model.ServiceReport
-import com.example.digitalx4.ui.navigation.ServiceReportScreens
 
 @Composable
 fun ServiceReportItem(
-    navController: NavController,
     serviceReport: ServiceReport,
+    navigateToAddEditReportScreenWithArgs: () -> Unit,
     onDeleteClicked: () -> Unit
 
 ){
 
     val subject = stringResource(id = R.string.send_report_subject)
-    val scope = rememberCoroutineScope()
 
     val serviceReportSummary = stringResource(
         R.string.report_details,
@@ -120,7 +116,7 @@ fun ServiceReportItem(
 
                 ReportRow(
                     text = stringResource(id = R.string.placement_input_label),
-                    value = "${serviceReport.placement}"
+                    value = serviceReport.placement
 
                     )
                 Divider(modifier=Modifier.border(1.dp, color = MaterialTheme.colorScheme.onTertiaryContainer))
@@ -128,28 +124,28 @@ fun ServiceReportItem(
 
                 ReportRow(
                     text = stringResource(id = R.string.video_input_label),
-                    value = "${serviceReport.videoShowing}"
+                    value = serviceReport.videoShowing
                 )
                 Divider(modifier=Modifier.border(1.dp, color = MaterialTheme.colorScheme.onTertiaryContainer))
 
 
                 ReportRow(
                     text = stringResource(id = R.string.hours_input_label),
-                    value = "${serviceReport.hours}"
+                    value = serviceReport.hours
                 )
                 Divider(modifier=Modifier.border(1.dp, color = MaterialTheme.colorScheme.onTertiaryContainer))
 
 
                 ReportRow(
                     text = stringResource(id = R.string.return_visits_input_label),
-                    value = "${serviceReport.returnVisits}"
+                    value = serviceReport.returnVisits
                 )
                 Divider(modifier=Modifier.border(1.dp, color = MaterialTheme.colorScheme.onTertiaryContainer))
 
 
                 ReportRow(
                     text = stringResource(id = R.string.bible_studies_input_label),
-                    value = "${serviceReport.bibleStudies}"
+                    value = serviceReport.bibleStudies
                 )
 
             }
@@ -190,11 +186,8 @@ fun ServiceReportItem(
 
                 ReportActionButton(
                     text = "Edit",
-                    onClick = {
-                        navController.navigate(
-                            ServiceReportScreens.AddEditReportScreen.name+"?reportId=${serviceReport.id}"
-                        )
-                    }
+                    onClick = { navigateToAddEditReportScreenWithArgs() }
+
                 )
 
                 ReportActionButton(

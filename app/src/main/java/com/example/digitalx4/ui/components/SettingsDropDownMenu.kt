@@ -16,12 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 
 @Composable
 fun SettingsDropDownMenu(
     showDropDownMenu: MutableState<Boolean>,
-    navController: NavController
 ){
     var expanded by remember { mutableStateOf(true) }
     val dropDownMenuItems = listOf("Settings", "Profile", "About")
@@ -50,10 +48,10 @@ fun SettingsDropDownMenu(
 
 
             dropDownMenuItems.forEachIndexed{
-                    index, item ->
+                    _, item ->
                 DropdownMenuItem(
                     text = {
-                        Text(text = item, fontSize = 17.sp,)
+                        Text(text = item, fontSize = 17.sp)
                     },
 
                     onClick = {

@@ -4,7 +4,6 @@ package com.example.digitalx4.features.sudents.presentation.add_edit_students
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -13,13 +12,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.digitalx4.R
-import com.example.digitalx4.features.service_report.presentation.add_edit_report.ServiceReportInputTextFieldState
 import com.example.digitalx4.features.service_report.presentation.add_edit_report.components.ServiceReportInputField
 import com.example.digitalx4.features.sudents.domain.model.StudentModel
 import com.example.digitalx4.features.sudents.presentation.components.StudentInputState
@@ -27,11 +24,10 @@ import com.example.digitalx4.features.sudents.presentation.students.StudentViewM
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
-import com.example.digitalx4.ui.navigation.ServiceReportScreens
+import com.example.digitalx4.ui.navigation.Screen
 import java.util.*
 
 //@Preview()
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditStudentScreen(
     studentViewModel: StudentViewModel = hiltViewModel(),
@@ -105,7 +101,7 @@ fun AddEditStudentScreen(
                 studentInputState.questionToConsider.value = ""
                 studentInputState.note.value = ""
 
-                navController.navigate(ServiceReportScreens.StudentsScreen.name)
+                navController.navigate(Screen.Students.route)
 
             }
 

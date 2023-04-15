@@ -27,7 +27,7 @@ class StudentViewModel @Inject constructor (
             studentUseCases.getAllStudents().distinctUntilChanged()
                 .collect{
                         listOfStudents ->
-                    if(listOfStudents.isNullOrEmpty()){
+                    if(listOfStudents.isEmpty()){
                         Log.d("Empty", "Empty List ")
                     }else{
                         _students.value = listOfStudents

@@ -44,7 +44,7 @@ object AppModule {
             deleteServiceReport = DeleteServiceReport(repository),
             addServiceReport = AddServiceReport(repository),
             getServiceReport = GetServiceReport(repository),
-            upDateServiceReport = UpdateServiceReport(repository)
+            upDateServiceReport = UpdateServiceReport(repository),
         )
     }
 

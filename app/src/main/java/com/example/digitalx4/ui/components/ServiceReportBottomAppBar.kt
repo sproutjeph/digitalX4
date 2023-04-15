@@ -6,7 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.digitalx4.ui.navigation.ServiceReportScreens
+import com.example.digitalx4.ui.navigation.Screen
 
 @Composable
 fun ServiceReportBottomAppBar(
@@ -28,12 +28,12 @@ fun ServiceReportBottomAppBar(
             NavigationBarItem(selected = false,
                 onClick = {
                           navController.navigate(route = when(navItem){
-                              "Home" -> ServiceReportScreens.HomeScreen.name
-                              "Reports" -> ServiceReportScreens.ReportsScreen.name
-                              "Students" -> ServiceReportScreens.StudentsScreen.name
-                              "Interests" -> ServiceReportScreens.InterestedPersonsScreen.name
-                              "Schedule" -> ServiceReportScreens.ScheduleScreen.name
-                              else -> ServiceReportScreens.HomeScreen.name
+                              "Home" -> Screen.Home.route
+                              "Reports" -> Screen.Reports.route
+                              "Students" -> Screen.Students.route
+                              "Interests" -> Screen.InterestedPersons.route
+                              "Schedule" -> Screen.Schedule.route
+                              else -> Screen.Home.route
                           })
 
 

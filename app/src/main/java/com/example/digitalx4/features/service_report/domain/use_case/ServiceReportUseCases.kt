@@ -5,5 +5,5 @@ data class ServiceReportUseCases (
     val deleteServiceReport: DeleteServiceReport,
     val getServiceReport: GetServiceReport,
     val addServiceReport: AddServiceReport,
-    val upDateServiceReport: UpdateServiceReport
+    val upDateServiceReport: UpdateServiceReport,
 )

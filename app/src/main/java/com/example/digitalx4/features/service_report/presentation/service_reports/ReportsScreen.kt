@@ -6,10 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,18 +16,23 @@ import com.example.digitalx4.features.service_report.presentation.service_report
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
-import com.example.digitalx4.ui.navigation.ServiceReportScreens
+import com.example.digitalx4.ui.navigation.Screen
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ServiceReportItemScreen(
     navController: NavController,
-    serviceReportViewModel: ServiceReportViewModel = hiltViewModel()
-){
+    serviceReportViewModel: ServiceReportViewModel = hiltViewModel(),
+    navigateToAddEditReportScreenWithArgs: (String) -> Unit,
+
+    ){
+
     val serviceReports = serviceReportViewModel.serviceReports.collectAsState().value
+
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+
+
 
     Scaffold(
         modifier = Modifier,
@@ -46,8 +48,8 @@ fun ServiceReportItemScreen(
         },
       snackbarHost = {SnackbarHost(hostState = snackbarHostState)},
         floatingActionButton = {
-            ServiceReportFAB(){
-                navController.navigate(ServiceReportScreens.AddEditReportScreen.name)
+            ServiceReportFAB{
+                navController.navigate(Screen.AddEditReport.route)
             }
         }
 
@@ -66,10 +68,10 @@ fun ServiceReportItemScreen(
                         EmptyListUi()
                     }
                 }else{
-                    items(serviceReports){ serviceReport ->
+                    items( serviceReports){ serviceReport ->
                         ServiceReportItem(
-                            navController = navController,
-                            serviceReport = serviceReport
+                            serviceReport = serviceReport,
+                            navigateToAddEditReportScreenWithArgs = {navigateToAddEditReportScreenWithArgs.invoke(serviceReport.id.toString())}
                         ) {
                             scope.launch {
                                 val result =  snackbarHostState.showSnackbar(

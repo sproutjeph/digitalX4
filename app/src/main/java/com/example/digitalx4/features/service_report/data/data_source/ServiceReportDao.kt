@@ -24,4 +24,10 @@ interface ServiceReportDao {
 
     @Delete
     suspend fun deleteServiceReport(report: ServiceReport)
+
+    @Query("SELECT * FROM report_tbl ORDER BY month ASC")
+    fun getServiceReportsOrderedByMonth(): Flow<List<ServiceReport>>
+
+    @Query("SELECT * FROM report_tbl ORDER BY report_entry_date ASC")
+    fun getServiceReportsOrderedByEntryDate(): Flow<List<ServiceReport>>
 }

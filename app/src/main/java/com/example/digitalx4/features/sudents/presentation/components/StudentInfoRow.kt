@@ -1,6 +1,5 @@
 package com.example.digitalx4.features.sudents.presentation.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

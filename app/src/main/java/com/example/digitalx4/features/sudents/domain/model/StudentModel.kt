@@ -4,7 +4,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.digitalx4.features.service_report.domain.model.ServiceReport
 import com.example.digitalx4.ui.theme.*
 import java.time.Instant
 import java.util.*

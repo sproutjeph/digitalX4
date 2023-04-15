@@ -13,16 +13,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.digitalx4.R
-import com.example.digitalx4.ui.theme.md_theme_light_background
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ServiceTimer(
-    modifier: Modifier = Modifier,
-    isTimerRuning:Boolean,
+    isTimerRunning:Boolean,
     seconds:String,
     minutes:String,
     hours:String,
@@ -94,7 +90,7 @@ fun ServiceTimer(
                 Button(
                     onClick = { onStop.invoke() },
                     shape = RoundedCornerShape(5.dp),
-                    enabled = isTimerRuning
+                    enabled = isTimerRunning
 
 
                 ) {
@@ -104,7 +100,7 @@ fun ServiceTimer(
                 Button(
                     onClick = { onPause.invoke() },
                     shape = RoundedCornerShape(5.dp),
-                    enabled = isTimerRuning
+                    enabled = isTimerRunning
 
 
                 ) {
@@ -114,7 +110,7 @@ fun ServiceTimer(
                 Button(
                     onClick = { onStart.invoke()},
                     shape = RoundedCornerShape(5.dp),
-                    enabled = !isTimerRuning
+                    enabled = !isTimerRunning
                 ) {
                     Text(text = stringResource(id = R.string.button_play))
                 }

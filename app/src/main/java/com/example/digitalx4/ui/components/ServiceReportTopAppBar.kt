@@ -47,7 +47,6 @@ fun ServiceReportTopAppBar(
     if(showDropDownMenu.value){
         SettingsDropDownMenu(
             showDropDownMenu = showDropDownMenu,
-            navController = navController
         )
 
     }

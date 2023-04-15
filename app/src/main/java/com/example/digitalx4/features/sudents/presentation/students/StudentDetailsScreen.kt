@@ -20,13 +20,11 @@ import com.example.digitalx4.features.sudents.presentation.components.StudentInf
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
-import com.example.digitalx4.ui.navigation.ServiceReportScreens
+import com.example.digitalx4.ui.navigation.Screen
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StudentDetailsScreen(
-    modifier: Modifier = Modifier,
     navController: NavController,
     studentDetails: StudentModel?
 ) {
@@ -45,7 +43,7 @@ fun StudentDetailsScreen(
         },
         floatingActionButton = {
             ServiceReportFAB(icon = Icons.Default.Edit){
-                navController.navigate(ServiceReportScreens.AddEditStudentScreen.name+"?studentId=${studentDetails?.id}")
+                navController.navigate(Screen.AddEditStudent.passStudentId(studentId = studentDetails?.id.toString()))
             }
         },
 

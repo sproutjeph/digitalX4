@@ -29,10 +29,8 @@ import com.example.digitalx4.features.sudents.domain.model.StudentModel
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
-import com.example.digitalx4.ui.navigation.ServiceReportScreens
-import com.example.digitalx4.ui.theme.*
+import com.example.digitalx4.ui.navigation.Screen
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StudentsScreen(
     navController: NavController,
@@ -52,8 +50,8 @@ fun StudentsScreen(
             ServiceReportBottomAppBar(navController = navController)
         },
         floatingActionButton = {
-            ServiceReportFAB(){
-                navController.navigate(ServiceReportScreens.AddEditStudentScreen.name)
+            ServiceReportFAB{
+                navController.navigate(Screen.AddEditStudent.route)
 
             }
         }
@@ -151,7 +149,7 @@ fun StudentsDisplay(
                       
                       Spacer(modifier = Modifier.width(30.dp))
 
-                      Column() {
+                      Column {
                           Text(
                               text = student.studentName,
                               style = MaterialTheme.typography.titleMedium,
@@ -200,7 +198,7 @@ fun StudentsDisplay(
 
                       Button(
                           onClick = {
-                              navController.navigate(ServiceReportScreens.StudentDetailsScreen.name+"?studentId=${student.id}")
+                              navController.navigate(Screen.StudentDetails.passStudentId(studentId = student.id.toString()))
 
                           },
                           colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)

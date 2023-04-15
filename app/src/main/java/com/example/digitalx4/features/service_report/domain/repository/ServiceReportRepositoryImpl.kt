@@ -25,11 +25,13 @@ class ServiceReportRepositoryImpl(
        return serviceReportDao.deleteServiceReport(serviceReport)
     }
 
-    override suspend fun getServiceReportById(serviceReportId: String): ServiceReport? {
+    override suspend fun getServiceReportById(serviceReportId: String): ServiceReport {
         return serviceReportDao.getServiceReportById(serviceReportId)
     }
 
     override suspend fun updateServiceReport(serviceReport: ServiceReport) {
         return serviceReportDao.updateServiceReportData(serviceReport)
     }
+
+
 }

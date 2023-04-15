@@ -16,10 +16,10 @@ import com.example.digitalx4.features.service_report.presentation.add_edit_repor
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
-import com.example.digitalx4.ui.navigation.ServiceReportScreens
+import com.example.digitalx4.ui.navigation.Screen
+import kotlinx.coroutines.launch
 import java.util.UUID
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditServiceReportScreen(
     navController: NavController,
@@ -38,6 +38,9 @@ fun AddEditServiceReportScreen(
     id: UUID? = null
 ) {
 
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val showSnackbar by viewModel.showSnackbar.collectAsState()
 
 
 
@@ -52,9 +55,11 @@ fun AddEditServiceReportScreen(
         bottomBar = {
             ServiceReportBottomAppBar(navController = navController)
         },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         floatingActionButton = {
             ServiceReportFAB(icon = Icons.Default.Done) {
-                if (id != null) {
+
+                if (id != null && !showSnackbar) {
                     viewModel.updateServiceReport(
                         ServiceReport(
                             id = id,
@@ -68,6 +73,28 @@ fun AddEditServiceReportScreen(
                             comments = serviceReportInputTextFieldStateState.comments.value,
                         )
                     )
+
+                    scope.launch {
+                        val result = snackbarHostState.showSnackbar(
+                            message = "Report Updated View Report?",
+                            actionLabel = "Yes",
+                            withDismissAction = true
+                        )
+
+                        if (result == SnackbarResult.ActionPerformed) navController.navigate(
+                            Screen.Home.route
+                        )
+
+                    }
+
+
+                } else if (showSnackbar) {
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = "Name and Month are required",
+                            withDismissAction = true
+                        )
+                    }
                 } else {
                     viewModel.addServiceReport(
                         ServiceReport(
@@ -83,6 +110,8 @@ fun AddEditServiceReportScreen(
                     )
                 }
 
+
+
                 serviceReportInputTextFieldStateState.name.value = ""
                 serviceReportInputTextFieldStateState.month.value = ""
                 serviceReportInputTextFieldStateState.placement.value = ""
@@ -91,8 +120,6 @@ fun AddEditServiceReportScreen(
                 serviceReportInputTextFieldStateState.returnVisits.value = ""
                 serviceReportInputTextFieldStateState.bibleStudies.value = ""
                 serviceReportInputTextFieldStateState.comments.value = ""
-
-                navController.navigate(ServiceReportScreens.HomeScreen.name)
 
 
             }
