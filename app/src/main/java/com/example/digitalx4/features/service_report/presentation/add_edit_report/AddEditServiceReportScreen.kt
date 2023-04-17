@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.service_report.domain.model.ServiceReport
 import com.example.digitalx4.features.service_report.presentation.add_edit_report.components.EnterEditReport
+import com.example.digitalx4.ui.components.BottomNavType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -23,19 +24,20 @@ import java.util.UUID
 @Composable
 fun AddEditServiceReportScreen(
     navController: NavController,
+    homeScreenState: MutableState<BottomNavType>,
     viewModel: AddEditServiceReportViewModel = hiltViewModel(),
     serviceReportInputTextFieldStateState: ServiceReportInputTextFieldState =
         ServiceReportInputTextFieldState(
-        name = remember { mutableStateOf("") },
-        month = remember { mutableStateOf("") },
-        placement = remember { mutableStateOf("") },
-        videoShowing = remember { mutableStateOf("") },
-        hours = remember { mutableStateOf("") },
-        returnVisits = remember { mutableStateOf("") },
-        bibleStudies = remember { mutableStateOf("") },
-        comments = remember { mutableStateOf("") },
-    ),
-    id: UUID? = null
+            name = remember { mutableStateOf("") },
+            month = remember { mutableStateOf("") },
+            placement = remember { mutableStateOf("") },
+            videoShowing = remember { mutableStateOf("") },
+            hours = remember { mutableStateOf("") },
+            returnVisits = remember { mutableStateOf("") },
+            bibleStudies = remember { mutableStateOf("") },
+            comments = remember { mutableStateOf("") },
+        ),
+    id: UUID? = null,
 ) {
 
     val scope = rememberCoroutineScope()
@@ -48,12 +50,16 @@ fun AddEditServiceReportScreen(
         topBar = {
             ServiceReportTopAppBar(
                 title = R.string.enter_report,
+                isMainScreen = false,
                 navController = navController,
-                isMainScreen = false
+                onMenuClicked = {}
             )
         },
         bottomBar = {
-            ServiceReportBottomAppBar(navController = navController)
+            ServiceReportBottomAppBar(
+                navController = navController,
+                homeScreenState = homeScreenState
+            )
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         floatingActionButton = {

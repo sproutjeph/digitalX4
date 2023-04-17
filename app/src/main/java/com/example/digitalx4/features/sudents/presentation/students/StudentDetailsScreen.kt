@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -17,6 +18,7 @@ import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.sudents.domain.model.StudentModel
 import com.example.digitalx4.features.sudents.presentation.components.StudentInfoRow
+import com.example.digitalx4.ui.components.BottomNavType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -26,7 +28,8 @@ import com.example.digitalx4.ui.navigation.Screen
 @Composable
 fun StudentDetailsScreen(
     navController: NavController,
-    studentDetails: StudentModel?
+    homeScreenState: MutableState<BottomNavType>,
+    studentDetails: StudentModel?,
 ) {
 
 
@@ -34,12 +37,16 @@ fun StudentDetailsScreen(
         topBar = {
             ServiceReportTopAppBar(
                 title =  R.string.student_screen_title,
+                isMainScreen = false,
                 navController = navController,
-                isMainScreen = false
+                onMenuClicked = {}
             )
         },
         bottomBar = {
-            ServiceReportBottomAppBar(navController = navController)
+            ServiceReportBottomAppBar(
+                navController = navController,
+                homeScreenState = homeScreenState
+            )
         },
         floatingActionButton = {
             ServiceReportFAB(icon = Icons.Default.Edit){

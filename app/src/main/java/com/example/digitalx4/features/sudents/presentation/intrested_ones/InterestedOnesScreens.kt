@@ -7,28 +7,35 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.digitalx4.R
+import com.example.digitalx4.ui.components.BottomNavType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
 
 @Composable
 fun InterestedOnesScreen(
-    navController: NavController
+    navController: NavController,
+    homeScreenState: MutableState<BottomNavType>
 ) {
 
     Scaffold (
         topBar = {
             ServiceReportTopAppBar(
                 title =  R.string.interested_screen_title,
+                isMainScreen = false,
                 navController = navController,
-                isMainScreen = false
+                onMenuClicked = {}
             )
         },
         bottomBar = {
-            ServiceReportBottomAppBar(navController = navController)
+            ServiceReportBottomAppBar(
+                navController = navController,
+                homeScreenState = homeScreenState
+            )
         },
         floatingActionButton = {
             ServiceReportFAB(

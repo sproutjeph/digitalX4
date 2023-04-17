@@ -32,14 +32,15 @@ fun ServiceTimer(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(220.dp)
-            .padding(6.dp)
-            .clip(shape = RoundedCornerShape(16.dp)),
+            .height(150.dp)
+            .padding(6.dp),
         elevation = CardDefaults.cardElevation(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
             contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-        )
+        ),
+        shape = RoundedCornerShape(bottomEnd = 24.dp, bottomStart = 24.dp)
+
 
 
     ) {
@@ -49,7 +50,7 @@ fun ServiceTimer(
             verticalArrangement = Arrangement.Center) {
 
             Text(text = stringResource(id = R.string.service_timer),
-                fontSize = 32.sp,
+                fontSize = 25.sp,
                 fontWeight = FontWeight.Bold
             )
 

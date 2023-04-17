@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.sudents.domain.model.StudentModel
+import com.example.digitalx4.ui.components.BottomNavType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -34,7 +36,8 @@ import com.example.digitalx4.ui.navigation.Screen
 @Composable
 fun StudentsScreen(
     navController: NavController,
-    studentViewModel: StudentViewModel = hiltViewModel()
+    studentViewModel: StudentViewModel = hiltViewModel(),
+    homeScreenState: MutableState<BottomNavType>
 ) {
     val students = studentViewModel.students.collectAsState().value
 
@@ -42,12 +45,16 @@ fun StudentsScreen(
         topBar = {
             ServiceReportTopAppBar(
                 title =  R.string.student_screen_title,
+                isMainScreen = false,
                 navController = navController,
-                isMainScreen = false
+                onMenuClicked = {}
             )
         },
         bottomBar = {
-            ServiceReportBottomAppBar(navController = navController)
+            ServiceReportBottomAppBar(
+                navController = navController,
+                homeScreenState = homeScreenState
+            )
         },
         floatingActionButton = {
             ServiceReportFAB{

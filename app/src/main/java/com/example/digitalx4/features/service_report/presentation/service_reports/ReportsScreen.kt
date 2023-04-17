@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.service_report.presentation.service_reports.component.OrderBySection
+import com.example.digitalx4.ui.components.BottomNavType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun ServiceReportItemScreen(
     navController: NavController,
+    homeScreenState: MutableState<BottomNavType>,
     serviceReportViewModel: ServiceReportViewModel = hiltViewModel(),
     navigateToAddEditReportScreenWithArgs: (String) -> Unit,
 
@@ -39,12 +41,15 @@ fun ServiceReportItemScreen(
         topBar = {
             ServiceReportTopAppBar(
                 title = R.string.all_reports,
-                navController = navController,
-                isMainScreen = false
-            )
+                isMainScreen = false,
+                navController = navController
+            ) {}
         },
         bottomBar = {
-            ServiceReportBottomAppBar(navController= navController)
+            ServiceReportBottomAppBar(
+                navController= navController,
+                homeScreenState = homeScreenState
+            )
         },
       snackbarHost = {SnackbarHost(hostState = snackbarHostState)},
         floatingActionButton = {

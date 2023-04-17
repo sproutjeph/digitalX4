@@ -14,15 +14,20 @@ import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.schedule.presentation.components.CalendarInput
 import com.example.digitalx4.features.schedule.presentation.components.Calendar
+import com.example.digitalx4.ui.components.BottomNavType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
+import java.time.LocalDate
 
 
 @Composable
 fun ScheduleScreen(
-    navController: NavController
+    navController: NavController,
+    homeScreenState: MutableState<BottomNavType>
 ) {
+    val openDialog = remember { mutableStateOf(false) }
+
 
     val calendarInputList   by remember {
         mutableStateOf(createCalendarList())
@@ -31,22 +36,36 @@ fun ScheduleScreen(
     var clickedCalendarElem by remember {
         mutableStateOf<CalendarInput?>(null)
     }
+    val months = listOf(
+        "January", "February", "March", "April", "May", "June", "July",
+        "August", "September", "October", "November", "December"
+    )
+
+    val currentMonth = LocalDate.now().monthValue
+    val currentMonthName = months[currentMonth - 1]
+
 
     Scaffold (
         topBar = {
             ServiceReportTopAppBar(
                 title =  R.string.schedule_screen_title,
+                isMainScreen = false,
                 navController = navController,
-                isMainScreen = false
+                onMenuClicked = {}
             )
         },
         bottomBar = {
-            ServiceReportBottomAppBar(navController = navController)
+            ServiceReportBottomAppBar(
+                navController = navController,
+                homeScreenState = homeScreenState
+
+            )
         },
         floatingActionButton = {
             ServiceReportFAB(
                 icon = Icons.Default.Add,
                 onClicked = {
+                    openDialog.value = true
 
                 }
             )
@@ -54,18 +73,18 @@ fun ScheduleScreen(
     ){ contentPadding->
         Box(
             modifier = Modifier
-                .padding(contentPadding)
+                .padding(vertical = contentPadding.calculateTopPadding(), horizontal = 16.dp)
                 .fillMaxSize(),
             contentAlignment = Alignment.TopCenter
         ){
             Calendar(
-                calendarInputs = calendarInputList,
-                onDayClicked = { day->
+                calendarInput = calendarInputList,
+                onDayClick = { day->
                     clickedCalendarElem = calendarInputList.first{
                         it.day == day
                 }
                 },
-                month = "March",
+                month = currentMonthName,
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxWidth()
@@ -89,6 +108,8 @@ fun ScheduleScreen(
                     )
                 }
             }
+            EnterScheduleDialog(openDialog = openDialog)
+
         }
 
     }

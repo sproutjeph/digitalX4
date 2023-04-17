@@ -4,13 +4,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.digitalx4.ui.navigation.Screen
 
 @Composable
 fun ServiceReportBottomAppBar(
-    navController: NavController
+    navController: NavController,
+    homeScreenState: MutableState<BottomNavType>
 ){
     val navItems = listOf("Home","Students", "Reports", "Interests","Schedule")
 
@@ -25,7 +27,16 @@ fun ServiceReportBottomAppBar(
 
             ) {
             navItems.forEach {navItem->
-            NavigationBarItem(selected = false,
+            NavigationBarItem(
+                selected = homeScreenState.value == when(navItem){
+                    BottomNavType.Home.name -> BottomNavType.Home
+                    BottomNavType.Students.name -> BottomNavType.Students
+                    BottomNavType.Reports.name -> BottomNavType.Reports
+                    BottomNavType.Interests.name -> BottomNavType.Interests
+                    BottomNavType.Schedule.name -> BottomNavType.Schedule
+                    else -> BottomNavType.Home
+                                                                    },
+
                 onClick = {
                           navController.navigate(route = when(navItem){
                               "Home" -> Screen.Home.route
@@ -35,6 +46,14 @@ fun ServiceReportBottomAppBar(
                               "Schedule" -> Screen.Schedule.route
                               else -> Screen.Home.route
                           })
+
+                    when(navItem){
+                        "Home" -> homeScreenState.value = BottomNavType.Home
+                        "Reports" -> homeScreenState.value = BottomNavType.Reports
+                        "Students" -> homeScreenState.value = BottomNavType.Students
+                        "Interests" -> homeScreenState.value = BottomNavType.Interests
+                        "Schedule" -> homeScreenState.value = BottomNavType.Schedule
+                    }
 
 
                 },

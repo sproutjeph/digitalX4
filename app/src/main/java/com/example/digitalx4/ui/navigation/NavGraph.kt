@@ -1,10 +1,15 @@
 package com.example.digitalx4.ui.navigation
 
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -24,7 +29,9 @@ import com.example.digitalx4.features.sudents.presentation.intrested_ones.Intere
 import com.example.digitalx4.features.sudents.presentation.students.StudentDetailsScreen
 import com.example.digitalx4.features.sudents.presentation.students.StudentViewModel
 import com.example.digitalx4.features.sudents.presentation.students.StudentsScreen
+import com.example.digitalx4.ui.components.BottomNavType
 import com.example.digitalx4.ui.screens.HomeScreen
+import kotlinx.coroutines.launch
 
 @Composable
 fun SetupNavigation(
@@ -33,6 +40,8 @@ fun SetupNavigation(
     widthSizeClass: WindowWidthSizeClass,
     ){
     val studentViewModel:StudentViewModel = hiltViewModel()
+    val homeScreenState = rememberSaveable { mutableStateOf(BottomNavType.Home) }
+
 
 
     NavHost(
@@ -41,6 +50,7 @@ fun SetupNavigation(
     ){
         homeRoute(
             navController = navController,
+            homeScreenState = homeScreenState,
             navigateToAddEditReportScreen = {
                 navController.navigate(Screen.AddEditReport.route)
             },
@@ -49,34 +59,41 @@ fun SetupNavigation(
 
 
         studentsRoute(
+            homeScreenState = homeScreenState,
             navController = navController
         )
 
         scheduleRoute(
+            homeScreenState = homeScreenState,
             navController = navController
         )
 
         interestedPersonRoute(
+            homeScreenState = homeScreenState,
             navController = navController
         )
 
         serviceReportItemRoute(
             navController = navController,
+            homeScreenState = homeScreenState,
             navigateToAddEditReportScreenWithArgs = {
                 navController.navigate(Screen.AddEditReport.passReportId(reportId = it))
             }
         )
 
         addEditServiceReportRoute(
+            homeScreenState = homeScreenState,
             navController = navController,
         )
 
         addEditStudentRoute(
+            homeScreenState = homeScreenState,
             navController = navController,
             studentViewModel = studentViewModel
         )
 
         studentDetailsRoute(
+            homeScreenState = homeScreenState,
             navController = navController,
             studentViewModel = studentViewModel
         )
@@ -89,12 +106,20 @@ fun SetupNavigation(
 
 fun NavGraphBuilder.homeRoute(
     navController: NavController,
-    navigateToAddEditReportScreen: () -> Unit,
+    homeScreenState: MutableState<BottomNavType>,
+    navigateToAddEditReportScreen: () -> Unit
     ){
 
     composable(route = Screen.Home.route){
+        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        val scope = rememberCoroutineScope()
         HomeScreen(
             navController = navController,
+            homeScreenState = homeScreenState,
+            drawerState = drawerState,
+            onMenuClicked = {
+                scope.launch { drawerState.open() }
+            },
             navigateToAddEditReportScreen = navigateToAddEditReportScreen,
         )
 
@@ -103,22 +128,30 @@ fun NavGraphBuilder.homeRoute(
 
 
 fun NavGraphBuilder.studentsRoute(
-    navController: NavController
+    navController: NavController,
+    homeScreenState: MutableState<BottomNavType>
 ){
 
     composable(route = Screen.Students.route){
-        StudentsScreen(navController = navController )
+        StudentsScreen(
+            navController = navController,
+            homeScreenState = homeScreenState
+        )
 
     }
 }
 
 
 fun NavGraphBuilder.scheduleRoute(
-    navController: NavController
+    navController: NavController,
+    homeScreenState: MutableState<BottomNavType>
 ){
 
     composable(route = Screen.Schedule.route){
-        ScheduleScreen(navController = navController)
+        ScheduleScreen(
+            navController = navController,
+            homeScreenState = homeScreenState
+        )
 
 
     }
@@ -126,16 +159,21 @@ fun NavGraphBuilder.scheduleRoute(
 
 
 fun NavGraphBuilder.interestedPersonRoute(
-    navController: NavController
+    navController: NavController,
+    homeScreenState: MutableState<BottomNavType>
 ){
 
     composable(route = Screen.InterestedPersons.route){
-        InterestedOnesScreen(navController = navController)
+        InterestedOnesScreen(
+            navController = navController,
+            homeScreenState = homeScreenState
+        )
     }
 }
 
 fun NavGraphBuilder.serviceReportItemRoute(
     navController: NavController,
+    homeScreenState: MutableState<BottomNavType>,
     navigateToAddEditReportScreenWithArgs: (String) -> Unit,
 
     ) {
@@ -143,6 +181,7 @@ fun NavGraphBuilder.serviceReportItemRoute(
     composable(route = Screen.Reports.route) {
         ServiceReportItemScreen(
             navController = navController,
+            homeScreenState = homeScreenState,
             navigateToAddEditReportScreenWithArgs = navigateToAddEditReportScreenWithArgs
         )
 
@@ -152,6 +191,7 @@ fun NavGraphBuilder.serviceReportItemRoute(
 
 fun NavGraphBuilder.addEditServiceReportRoute(
     navController: NavController,
+    homeScreenState: MutableState<BottomNavType>,
 
     ) {
 
@@ -183,11 +223,13 @@ fun NavGraphBuilder.addEditServiceReportRoute(
                     comments = remember { mutableStateOf(reportToEdit.comments) },
 
                     ),
-                id = reportToEdit.id
+                id = reportToEdit.id,
+                homeScreenState = homeScreenState
             )
 
         } else {
             AddEditServiceReportScreen(
+                homeScreenState = homeScreenState,
                 navController = navController,
             )
         }
@@ -198,9 +240,10 @@ fun NavGraphBuilder.addEditServiceReportRoute(
 }
 fun NavGraphBuilder.addEditStudentRoute(
     navController: NavController,
-    studentViewModel:StudentViewModel
+    studentViewModel: StudentViewModel,
+    homeScreenState: MutableState<BottomNavType>
 
-    ) {
+) {
 
     composable(
         route = Screen.AddEditStudent.route,
@@ -218,6 +261,7 @@ fun NavGraphBuilder.addEditStudentRoute(
 
             AddEditStudentScreen(
                 navController = navController,
+                homeScreenState = homeScreenState,
                 studentInputState = StudentInputState(
                     id = studentToEdit.id,
                     name = remember { mutableStateOf(studentToEdit.studentName) },
@@ -235,7 +279,10 @@ fun NavGraphBuilder.addEditStudentRoute(
             )
         }else{
 
-            AddEditStudentScreen(navController = navController)
+            AddEditStudentScreen(
+                homeScreenState = homeScreenState,
+                navController = navController
+            )
         }
 
 
@@ -245,9 +292,10 @@ fun NavGraphBuilder.addEditStudentRoute(
 
 fun NavGraphBuilder.studentDetailsRoute(
     navController: NavController,
-    studentViewModel:StudentViewModel
+    studentViewModel: StudentViewModel,
+    homeScreenState: MutableState<BottomNavType>
 
-    ) {
+) {
 
     composable(
         route = Screen.StudentDetails.route,
@@ -262,6 +310,7 @@ fun NavGraphBuilder.studentDetailsRoute(
         val studentDetails = students.find { it.id.toString() == studentId }
         StudentDetailsScreen(
             navController = navController,
+            homeScreenState = homeScreenState,
             studentDetails = studentDetails
         )
 

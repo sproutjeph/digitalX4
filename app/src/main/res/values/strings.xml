@@ -34,4 +34,6 @@
     <string name="time_of_visit">Time of Visit</string>
     <string name="question">Question to Consider</string>
     <string name="notes">Note about Student</string>
+    <string name="day_of_month">Day of the Month</string>
+    <string name="schedule_details">Schedule Info</string>
 </resources>

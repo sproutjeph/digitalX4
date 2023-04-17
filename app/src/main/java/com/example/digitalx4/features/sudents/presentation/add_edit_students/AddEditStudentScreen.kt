@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -21,6 +22,7 @@ import com.example.digitalx4.features.service_report.presentation.add_edit_repor
 import com.example.digitalx4.features.sudents.domain.model.StudentModel
 import com.example.digitalx4.features.sudents.presentation.components.StudentInputState
 import com.example.digitalx4.features.sudents.presentation.students.StudentViewModel
+import com.example.digitalx4.ui.components.BottomNavType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -31,7 +33,8 @@ import java.util.*
 @Composable
 fun AddEditStudentScreen(
     studentViewModel: StudentViewModel = hiltViewModel(),
-    navController: NavController  = rememberNavController(),
+    homeScreenState: MutableState<BottomNavType>,
+    navController: NavController = rememberNavController(),
     studentInputState: StudentInputState = StudentInputState(
         name = remember { mutableStateOf("") },
         address = remember { mutableStateOf("") },
@@ -43,7 +46,7 @@ fun AddEditStudentScreen(
         questionToConsider = remember { mutableStateOf("") },
         note = remember { mutableStateOf("") },
     ),
-    id: UUID? = null
+    id: UUID? = null,
 ) {
 
 
@@ -51,12 +54,16 @@ fun AddEditStudentScreen(
         topBar = {
             ServiceReportTopAppBar(
                 title =  R.string.add_student,
+                isMainScreen = false,
                 navController = navController,
-                isMainScreen = false
+                onMenuClicked = {}
             )
         },
         bottomBar = {
-            ServiceReportBottomAppBar(navController = navController)
+            ServiceReportBottomAppBar(
+                navController = navController,
+                homeScreenState = homeScreenState
+            )
         },
         floatingActionButton = {
             ServiceReportFAB(icon = Icons.Default.Done){
