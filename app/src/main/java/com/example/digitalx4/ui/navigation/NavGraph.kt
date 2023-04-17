@@ -252,7 +252,7 @@ fun NavGraphBuilder.addEditStudentRoute(
             nullable = true
             defaultValue = null
         })
-    ) {
+    ) { it ->
         val studentId = it.arguments?.getString("studentId")
         val students = studentViewModel.students.collectAsState().value
         val studentToEdit = students.find { it.id.toString() == studentId }
@@ -304,7 +304,7 @@ fun NavGraphBuilder.studentDetailsRoute(
             nullable = true
             defaultValue = null
         })
-    ) {
+    ) { it ->
         val studentId = it.arguments?.getString("studentId") ?: "student"
         val students = studentViewModel.students.collectAsState().value
         val studentDetails = students.find { it.id.toString() == studentId }

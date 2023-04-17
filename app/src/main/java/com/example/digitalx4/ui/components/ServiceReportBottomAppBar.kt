@@ -73,13 +73,13 @@ fun ServiceReportBottomAppBar(
                         "Students" ->Icon(imageVector = Icons.Default.AccountBox,
                             contentDescription = null,
                             modifier = Modifier)
-                        "Reports" -> Icon(imageVector = Icons.Default.MailOutline,
+                        "Reports" -> Icon(imageVector = Icons.Default.Book,
                             contentDescription = null,
                             modifier = Modifier)
                         "Interests" -> Icon(imageVector = Icons.Default.Person,
                             contentDescription = null,
                             modifier = Modifier)
-                        "Schedule" -> Icon(imageVector = Icons.Filled.List,
+                        "Schedule" -> Icon(imageVector = Icons.Filled.Schedule,
                             contentDescription = null,
                             modifier = Modifier)
                     }

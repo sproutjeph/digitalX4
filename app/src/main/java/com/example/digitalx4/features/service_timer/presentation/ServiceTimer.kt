@@ -8,7 +8,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,8 +31,7 @@ fun ServiceTimer(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)
-            .padding(6.dp),
+            .height(150.dp),
         elevation = CardDefaults.cardElevation(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
@@ -45,7 +43,9 @@ fun ServiceTimer(
 
     ) {
 
-        Column(modifier = Modifier.padding(16.dp),
+        Column(
+            modifier = Modifier
+            .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
 
@@ -61,19 +61,19 @@ fun ServiceTimer(
                 AnimatedContent(targetState =hours, transitionSpec = { addAnimation() }) {
                     Text(
                         text = "$hours : ",
-                        style = MaterialTheme.typography.displaySmall
+                        style = MaterialTheme.typography.titleLarge
                     )
                 }
                 AnimatedContent(targetState =minutes, transitionSpec = { addAnimation() }) {
                     Text(
                         text = "$minutes : ",
-                        style = MaterialTheme.typography.displaySmall
+                        style = MaterialTheme.typography.titleLarge
                     )
                 }
                 AnimatedContent(targetState =seconds, transitionSpec = { addAnimation() }) {
                     Text(
                         text = seconds,
-                        style = MaterialTheme.typography.displaySmall,
+                        style = MaterialTheme.typography.titleLarge,
                         color = if(seconds == "00") MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.primary
                     )
                 }

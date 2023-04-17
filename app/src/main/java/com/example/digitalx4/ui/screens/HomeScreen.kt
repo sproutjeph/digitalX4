@@ -38,12 +38,12 @@ fun launchSocialActivity(context: Context, socialType: String) {
 @Composable
 fun HomeScreen(
     navController: NavController,
+    homeScreenState: MutableState<BottomNavType>,
     serviceReportViewModel: ServiceReportViewModel = hiltViewModel(),
     serviceTimerViewModel: ServiceTimerViewModel = hiltViewModel(),
     drawerState: DrawerState,
     onMenuClicked: () -> Unit = {},
     navigateToAddEditReportScreen: () -> Unit,
-    homeScreenState: MutableState<BottomNavType>,
     ){
     val serviceReports = serviceReportViewModel.serviceReports.collectAsState().value
 

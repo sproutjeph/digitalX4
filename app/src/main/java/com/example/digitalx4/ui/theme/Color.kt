@@ -2,14 +2,6 @@ package com.example.digitalx4.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
-
 val RedOrange = Color(0xffffab91)
 val RedPink = Color(0xfff48fb1)
 val BabyBlue = Color(0xff81deea)
@@ -43,7 +35,6 @@ val md_theme_light_outline = Color(0xFF7B757F)
 val md_theme_light_inverseOnSurface = Color(0xFFF5EFF4)
 val md_theme_light_inverseSurface = Color(0xFF323033)
 val md_theme_light_inversePrimary = Color(0xFFD5BAFF)
-val md_theme_light_shadow = Color(0xFF000000)
 val md_theme_light_surfaceTint = Color(0xFF6D4EA1)
 val md_theme_light_outlineVariant = Color(0xFFCBC4CF)
 val md_theme_light_scrim = Color(0xFF000000)
@@ -74,7 +65,6 @@ val md_theme_dark_outline = Color(0xFF958E99)
 val md_theme_dark_inverseOnSurface = Color(0xFF1D1B1E)
 val md_theme_dark_inverseSurface = Color(0xFFE6E1E6)
 val md_theme_dark_inversePrimary = Color(0xFF6D4EA1)
-val md_theme_dark_shadow = Color(0xFF000000)
 val md_theme_dark_surfaceTint = Color(0xFFD5BAFF)
 val md_theme_dark_outlineVariant = Color(0xFF49454E)
 val md_theme_dark_scrim = Color(0xFF000000)
