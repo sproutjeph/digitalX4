@@ -1,6 +1,6 @@
 package com.example.digitalx4.ui.components
 
-enum class BottomNavType {
+enum class AppNavigationType {
     Home,
     Students,
     Reports,

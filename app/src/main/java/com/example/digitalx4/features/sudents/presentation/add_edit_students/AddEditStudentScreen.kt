@@ -22,7 +22,7 @@ import com.example.digitalx4.features.service_report.presentation.add_edit_repor
 import com.example.digitalx4.features.sudents.domain.model.StudentModel
 import com.example.digitalx4.features.sudents.presentation.components.StudentInputState
 import com.example.digitalx4.features.sudents.presentation.students.StudentViewModel
-import com.example.digitalx4.ui.components.BottomNavType
+import com.example.digitalx4.ui.components.AppNavigationType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -33,7 +33,7 @@ import java.util.*
 @Composable
 fun AddEditStudentScreen(
     studentViewModel: StudentViewModel = hiltViewModel(),
-    homeScreenState: MutableState<BottomNavType>,
+    homeScreenState: MutableState<AppNavigationType>,
     navController: NavController = rememberNavController(),
     studentInputState: StudentInputState = StudentInputState(
         name = remember { mutableStateOf("") },

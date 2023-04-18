@@ -14,7 +14,7 @@ import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.schedule.presentation.components.CalendarInput
 import com.example.digitalx4.features.schedule.presentation.components.Calendar
-import com.example.digitalx4.ui.components.BottomNavType
+import com.example.digitalx4.ui.components.AppNavigationType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -24,7 +24,7 @@ import java.time.LocalDate
 @Composable
 fun ScheduleScreen(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>
+    homeScreenState: MutableState<AppNavigationType>
 ) {
     val openDialog = remember { mutableStateOf(false) }
 

@@ -12,7 +12,7 @@ import com.example.digitalx4.ui.navigation.Screen
 @Composable
 fun ServiceReportBottomAppBar(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>
+    homeScreenState: MutableState<AppNavigationType>
 ){
     val navItems = listOf("Home","Students", "Reports", "Interests","Schedule")
 
@@ -29,12 +29,12 @@ fun ServiceReportBottomAppBar(
             navItems.forEach {navItem->
             NavigationBarItem(
                 selected = homeScreenState.value == when(navItem){
-                    BottomNavType.Home.name -> BottomNavType.Home
-                    BottomNavType.Students.name -> BottomNavType.Students
-                    BottomNavType.Reports.name -> BottomNavType.Reports
-                    BottomNavType.Interests.name -> BottomNavType.Interests
-                    BottomNavType.Schedule.name -> BottomNavType.Schedule
-                    else -> BottomNavType.Home
+                    AppNavigationType.Home.name -> AppNavigationType.Home
+                    AppNavigationType.Students.name -> AppNavigationType.Students
+                    AppNavigationType.Reports.name -> AppNavigationType.Reports
+                    AppNavigationType.Interests.name -> AppNavigationType.Interests
+                    AppNavigationType.Schedule.name -> AppNavigationType.Schedule
+                    else -> AppNavigationType.Home
                                                                     },
 
                 onClick = {
@@ -48,11 +48,11 @@ fun ServiceReportBottomAppBar(
                           })
 
                     when(navItem){
-                        "Home" -> homeScreenState.value = BottomNavType.Home
-                        "Reports" -> homeScreenState.value = BottomNavType.Reports
-                        "Students" -> homeScreenState.value = BottomNavType.Students
-                        "Interests" -> homeScreenState.value = BottomNavType.Interests
-                        "Schedule" -> homeScreenState.value = BottomNavType.Schedule
+                        "Home" -> homeScreenState.value = AppNavigationType.Home
+                        "Reports" -> homeScreenState.value = AppNavigationType.Reports
+                        "Students" -> homeScreenState.value = AppNavigationType.Students
+                        "Interests" -> homeScreenState.value = AppNavigationType.Interests
+                        "Schedule" -> homeScreenState.value = AppNavigationType.Schedule
                     }
 
 

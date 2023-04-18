@@ -11,7 +11,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.digitalx4.R
-import com.example.digitalx4.ui.components.BottomNavType
+import com.example.digitalx4.ui.components.AppNavigationType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -19,7 +19,7 @@ import com.example.digitalx4.ui.components.ServiceReportTopAppBar
 @Composable
 fun InterestedOnesScreen(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>
+    homeScreenState: MutableState<AppNavigationType>
 ) {
 
     Scaffold (

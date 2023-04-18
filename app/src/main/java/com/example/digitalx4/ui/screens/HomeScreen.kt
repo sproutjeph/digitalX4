@@ -22,7 +22,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.MutableState
 import com.example.digitalx4.features.service_report.presentation.service_reports.component.ServiceReportPreviewItem
 import com.example.digitalx4.features.service_timer.presentation.ServiceTimerViewModel
-import com.example.digitalx4.ui.components.BottomNavType
+import com.example.digitalx4.ui.components.AppNavigationType
 import com.example.digitalx4.ui.navigation.Screen
 const val twitterUrl = "https://www.twitter.com/JephthahMbah"
 const val linkedInUrl = "https://www.linkedin.com/in/jephthah-mbah-jw-71244263/"
@@ -38,7 +38,7 @@ fun launchSocialActivity(context: Context, socialType: String) {
 @Composable
 fun HomeScreen(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>,
+    homeScreenState: MutableState<AppNavigationType>,
     serviceReportViewModel: ServiceReportViewModel = hiltViewModel(),
     serviceTimerViewModel: ServiceTimerViewModel = hiltViewModel(),
     drawerState: DrawerState,

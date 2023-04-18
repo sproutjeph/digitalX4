@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.sudents.domain.model.StudentModel
 import com.example.digitalx4.features.sudents.presentation.components.StudentInfoRow
-import com.example.digitalx4.ui.components.BottomNavType
+import com.example.digitalx4.ui.components.AppNavigationType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -28,7 +28,7 @@ import com.example.digitalx4.ui.navigation.Screen
 @Composable
 fun StudentDetailsScreen(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>,
+    homeScreenState: MutableState<AppNavigationType>,
     studentDetails: StudentModel?,
 ) {
 

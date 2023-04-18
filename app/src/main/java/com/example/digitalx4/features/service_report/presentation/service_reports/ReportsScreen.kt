@@ -13,7 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.service_report.presentation.service_reports.component.OrderBySection
-import com.example.digitalx4.ui.components.BottomNavType
+import com.example.digitalx4.ui.components.AppNavigationType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun ServiceReportItemScreen(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>,
+    homeScreenState: MutableState<AppNavigationType>,
     serviceReportViewModel: ServiceReportViewModel = hiltViewModel(),
     navigateToAddEditReportScreenWithArgs: (String) -> Unit,
 

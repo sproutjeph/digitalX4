@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.service_report.domain.model.ServiceReport
 import com.example.digitalx4.features.service_report.presentation.add_edit_report.components.EnterEditReport
-import com.example.digitalx4.ui.components.BottomNavType
+import com.example.digitalx4.ui.components.AppNavigationType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -24,7 +24,7 @@ import java.util.UUID
 @Composable
 fun AddEditServiceReportScreen(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>,
+    homeScreenState: MutableState<AppNavigationType>,
     viewModel: AddEditServiceReportViewModel = hiltViewModel(),
     serviceReportInputTextFieldStateState: ServiceReportInputTextFieldState =
         ServiceReportInputTextFieldState(

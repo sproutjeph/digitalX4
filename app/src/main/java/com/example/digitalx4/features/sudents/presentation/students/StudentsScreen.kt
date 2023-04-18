@@ -27,7 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.digitalx4.R
 import com.example.digitalx4.features.sudents.domain.model.StudentModel
-import com.example.digitalx4.ui.components.BottomNavType
+import com.example.digitalx4.ui.components.AppNavigationType
 import com.example.digitalx4.ui.components.ServiceReportBottomAppBar
 import com.example.digitalx4.ui.components.ServiceReportFAB
 import com.example.digitalx4.ui.components.ServiceReportTopAppBar
@@ -37,7 +37,7 @@ import com.example.digitalx4.ui.navigation.Screen
 fun StudentsScreen(
     navController: NavController,
     studentViewModel: StudentViewModel = hiltViewModel(),
-    homeScreenState: MutableState<BottomNavType>
+    homeScreenState: MutableState<AppNavigationType>
 ) {
     val students = studentViewModel.students.collectAsState().value
 

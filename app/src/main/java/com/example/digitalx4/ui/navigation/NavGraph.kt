@@ -29,7 +29,7 @@ import com.example.digitalx4.features.sudents.presentation.intrested_ones.Intere
 import com.example.digitalx4.features.sudents.presentation.students.StudentDetailsScreen
 import com.example.digitalx4.features.sudents.presentation.students.StudentViewModel
 import com.example.digitalx4.features.sudents.presentation.students.StudentsScreen
-import com.example.digitalx4.ui.components.BottomNavType
+import com.example.digitalx4.ui.components.AppNavigationType
 import com.example.digitalx4.ui.screens.HomeScreen
 import kotlinx.coroutines.launch
 
@@ -40,7 +40,7 @@ fun SetupNavigation(
     widthSizeClass: WindowWidthSizeClass,
     ){
     val studentViewModel:StudentViewModel = hiltViewModel()
-    val homeScreenState = rememberSaveable { mutableStateOf(BottomNavType.Home) }
+    val homeScreenState = rememberSaveable { mutableStateOf(AppNavigationType.Home) }
 
 
 
@@ -106,7 +106,7 @@ fun SetupNavigation(
 
 fun NavGraphBuilder.homeRoute(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>,
+    homeScreenState: MutableState<AppNavigationType>,
     navigateToAddEditReportScreen: () -> Unit
     ){
 
@@ -129,7 +129,7 @@ fun NavGraphBuilder.homeRoute(
 
 fun NavGraphBuilder.studentsRoute(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>
+    homeScreenState: MutableState<AppNavigationType>
 ){
 
     composable(route = Screen.Students.route){
@@ -144,7 +144,7 @@ fun NavGraphBuilder.studentsRoute(
 
 fun NavGraphBuilder.scheduleRoute(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>
+    homeScreenState: MutableState<AppNavigationType>
 ){
 
     composable(route = Screen.Schedule.route){
@@ -160,7 +160,7 @@ fun NavGraphBuilder.scheduleRoute(
 
 fun NavGraphBuilder.interestedPersonRoute(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>
+    homeScreenState: MutableState<AppNavigationType>
 ){
 
     composable(route = Screen.InterestedPersons.route){
@@ -173,7 +173,7 @@ fun NavGraphBuilder.interestedPersonRoute(
 
 fun NavGraphBuilder.serviceReportItemRoute(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>,
+    homeScreenState: MutableState<AppNavigationType>,
     navigateToAddEditReportScreenWithArgs: (String) -> Unit,
 
     ) {
@@ -191,7 +191,7 @@ fun NavGraphBuilder.serviceReportItemRoute(
 
 fun NavGraphBuilder.addEditServiceReportRoute(
     navController: NavController,
-    homeScreenState: MutableState<BottomNavType>,
+    homeScreenState: MutableState<AppNavigationType>,
 
     ) {
 
@@ -241,7 +241,7 @@ fun NavGraphBuilder.addEditServiceReportRoute(
 fun NavGraphBuilder.addEditStudentRoute(
     navController: NavController,
     studentViewModel: StudentViewModel,
-    homeScreenState: MutableState<BottomNavType>
+    homeScreenState: MutableState<AppNavigationType>
 
 ) {
 
@@ -293,7 +293,7 @@ fun NavGraphBuilder.addEditStudentRoute(
 fun NavGraphBuilder.studentDetailsRoute(
     navController: NavController,
     studentViewModel: StudentViewModel,
-    homeScreenState: MutableState<BottomNavType>
+    homeScreenState: MutableState<AppNavigationType>
 
 ) {
 
